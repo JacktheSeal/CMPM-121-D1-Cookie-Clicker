@@ -89,81 +89,83 @@ buyADButton.addEventListener("click", () => {
   buyADButton.textContent = `Buy AD - (${ADCost} minions)`;
 });
 
-/* YASUO SECTION: Yasuo = Farm*/
+type Champion = {
+  name: string;
+  imageURL: string;
+  cost: number;
+  minionsPerSecond: number;
+  count: number;
+};
 
-// # of yasuos + cost of yasuos
-let yasuos: number = 0;
-let yasuoCost: number = 100;
-const yasuoContainer = document.createElement("div");
+const champions: Champion[] = [
+  {
+    name: "Yasuo",
+    imageURL: yasuoURL,
+    cost: 100,
+    minionsPerSecond: 1,
+    count: 0,
+  },
+  {
+    name: "Yone",
+    imageURL: yoneURL,
+    cost: 1000,
+    minionsPerSecond: 8,
+    count: 0,
+  },
+];
 
-// buy yasuo button, cost embedded in button text
-const buyYasuoButton = document.createElement("button");
-buyYasuoButton.textContent = `Buy Yasuo - (${yasuoCost} minions)`;
+const championElements: HTMLElement[] = [];
 
-// shows number of yasuos
-const yasuoCountText = document.createElement("p");
-yasuoCountText.textContent = "Yasuos: 0";
+function createChampionSection(champion: Champion) {
+  const countText = document.createElement("p");
+  countText.textContent = `${champion.name} Count: 0`;
 
-// yasuo purchase button logic, price increments + update button text with new price
-buyYasuoButton.addEventListener("click", () => {
-  if (minionsFarmed < yasuoCost) return;
-  minionsFarmed -= yasuoCost;
-  yasuos++;
-  addYasuo();
-  yasuoCost = Math.ceil(yasuoCost * 1.15);
-  minionsFarmedButton.textContent = minionsFarmed.toString();
-  yasuoCountText.textContent = `Yasuos: ${yasuos}`;
-  buyYasuoButton.textContent = `Buy Yasuo - (${yasuoCost} minions)`;
-});
+  const buyButton = document.createElement("button");
+  buyButton.textContent = `Buy ${champion.name} - (${champion.cost} minions)`;
 
-function addYasuo() {
-  const yasuo = document.createElement("img");
-  yasuo.src = yasuoURL;
-  yasuo.alt = "Yasuo";
-  yasuo.width = 96;
-  yasuo.height = 96;
-  yasuoContainer.append(yasuo);
+  const descriptionText = document.createElement("p");
+  descriptionText.textContent =
+    `Farms ${champion.minionsPerSecond} minion(s) per second`;
+
+  const container = document.createElement("div");
+
+  const divider = document.createElement("hr");
+
+  buyButton.addEventListener("click", () => {
+    if (minionsFarmed < champion.cost) return;
+    minionsFarmed -= champion.cost;
+    champion.count++;
+    addChampionImage(container, champion);
+    champion.cost = Math.ceil(champion.cost * 1.15 ** champion.count);
+    minionsFarmedButton.textContent = minionsFarmed.toString();
+    countText.textContent = `${champion.name}s: ${champion.count}`;
+    buyButton.textContent = `Buy ${champion.name} - (${champion.cost} minions)`;
+  });
+
+  championElements.push(
+    divider,
+    countText,
+    buyButton,
+    descriptionText,
+    container,
+  );
 }
 
-/* YONE SECTION: Yone = FarmDeluxe*/
-
-// # of yones + cost of yones
-let yones: number = 0;
-let yoneCost: number = 1000;
-const yoneContainer = document.createElement("div");
-
-// buy yone button, cost embedded in button text
-const buyYoneButton = document.createElement("button");
-buyYoneButton.textContent = `Buy Yone - (${yoneCost} minions)`;
-
-// shows number of yones
-const yoneCountText = document.createElement("p");
-yoneCountText.textContent = "Yones: 0";
-
-// yone purchase button logic, price increments + update button text with new price
-buyYoneButton.addEventListener("click", () => {
-  if (minionsFarmed < yoneCost) return;
-  minionsFarmed -= yoneCost;
-  yones++;
-  addYone();
-  yoneCost = Math.ceil(yoneCost * 1.15);
-  minionsFarmedButton.textContent = minionsFarmed.toString();
-  yoneCountText.textContent = `Yones: ${yones}`;
-  buyYoneButton.textContent = `Buy Yone - (${yoneCost} minions)`;
-});
-
-function addYone() {
-  const yone = document.createElement("img");
-  yone.src = yoneURL;
-  yone.alt = "Yone";
-  yone.width = 96;
-  yone.height = 96;
-  yoneContainer.append(yone);
+function addChampionImage(container: HTMLElement, champion: Champion) {
+  const img = document.createElement("img");
+  img.src = champion.imageURL;
+  img.alt = champion.name;
+  img.width = 96;
+  img.height = 96;
+  container.append(img);
 }
 
-// add minions per second based on number of champions (yasuo and yone)
+champions.forEach(createChampionSection);
+
 setInterval(() => {
-  minionsFarmed += yasuos + yones * 10;
+  for (const champion of champions) {
+    minionsFarmed += champion.count * champion.minionsPerSecond;
+  }
   minionsFarmedButton.textContent = minionsFarmed.toString();
 }, 1000);
 
@@ -175,10 +177,5 @@ app.append(
   ADElement,
   buyADButton,
   itemContainer,
-  yasuoCountText,
-  buyYasuoButton,
-  yasuoContainer,
-  yoneCountText,
-  buyYoneButton,
-  yoneContainer,
+  ...championElements,
 );
