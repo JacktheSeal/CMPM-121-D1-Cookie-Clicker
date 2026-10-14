@@ -17,16 +17,49 @@ image.style.display = "block";
 
 let minionsFarmed: number = 0;
 
-const clickButton = document.createElement("button") as HTMLButtonElement;
-clickButton.textContent = "Farm Minion";
+const farmMinionButton = document.createElement("button") as HTMLButtonElement;
+farmMinionButton.textContent = "Farm Minion";
 
-const minionsFarmedElement = document.createElement("p")!;
-minionsFarmedElement.id = "minionsFarmed";
-minionsFarmedElement.textContent = "0";
+const minionsFarmedButton = document.createElement("p")!;
+minionsFarmedButton.id = "minionsFarmed";
+minionsFarmedButton.textContent = "0";
 
-clickButton.addEventListener("click", () => {
+farmMinionButton.addEventListener("click", () => {
   minionsFarmed++;
-  minionsFarmedElement.textContent = minionsFarmed.toString();
+  minionsFarmedButton.textContent = minionsFarmed.toString();
 });
 
-app.append(heading, image, clickButton, minionsFarmedElement);
+// Yasuo Section
+
+let champions: number = 0;
+let championCost: number = 20;
+
+const buyChampionButton = document.createElement("button");
+buyChampionButton.textContent = `Buy Yasuo - (${championCost} minions)`;
+
+const championsElement = document.createElement("p");
+championsElement.textContent = "Yasuos: 0";
+
+buyChampionButton.addEventListener("click", () => {
+  if (minionsFarmed < championCost) return;
+  minionsFarmed -= championCost;
+  champions++;
+  championCost = Math.ceil(championCost * 1.15);
+  minionsFarmedButton.textContent = minionsFarmed.toString();
+  championsElement.textContent = `Yasuos: ${champions}`;
+  buyChampionButton.textContent = `Buy Yasuo - (${championCost} minions)`;
+});
+
+setInterval(() => {
+  minionsFarmed += champions;
+  minionsFarmedButton.textContent = minionsFarmed.toString();
+}, 1000);
+
+app.append(
+  heading,
+  image,
+  farmMinionButton,
+  minionsFarmedButton,
+  buyChampionButton,
+  championsElement,
+);
