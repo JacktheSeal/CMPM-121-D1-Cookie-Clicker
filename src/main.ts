@@ -41,7 +41,7 @@ buyADButton.textContent = `Buy AD - (${ADCost} minions)`;
 
 // shows amt of AD
 const ADElement = document.createElement("p");
-ADElement.textContent = "AD: 0";
+ADElement.textContent = "AD: 1";
 
 // AD purchase button logic, price increments + update button text with new price
 buyADButton.addEventListener("click", () => {
@@ -90,8 +90,8 @@ app.append(
   image,
   farmMinionButton,
   minionsFarmedButton,
-  buyADButton,
   ADElement,
-  buyChampionButton,
+  buyADButton,
   championsElement,
+  buyChampionButton,
 );
