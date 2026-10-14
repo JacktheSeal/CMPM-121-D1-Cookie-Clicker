@@ -15,18 +15,18 @@ image.width = 96;
 image.height = 96;
 image.style.display = "block";
 
-let counter: number = 0;
+let minionsFarmed: number = 0;
 
 const clickButton = document.createElement("button") as HTMLButtonElement;
 clickButton.textContent = "Farm Minion";
 
-const counterElement = document.createElement("p")!;
-counterElement.id = "counter";
-counterElement.textContent = "0";
+const minionsFarmedElement = document.createElement("p")!;
+minionsFarmedElement.id = "minionsFarmed";
+minionsFarmedElement.textContent = "0";
 
 clickButton.addEventListener("click", () => {
-  counter++;
-  counterElement.textContent = counter.toString();
+  minionsFarmed++;
+  minionsFarmedElement.textContent = minionsFarmed.toString();
 });
 
-app.append(heading, image, clickButton, counterElement);
+app.append(heading, image, clickButton, minionsFarmedElement);
