@@ -12,6 +12,7 @@ import yoneURL from "./assets/yone.png?no-inline";
 import sylasURL from "./assets/sylas.png?no-inline";
 import viktorURL from "./assets/viktor.png?no-inline";
 import azirURL from "./assets/azir.png?no-inline";
+import fiddlesticks from "./assets/fiddlesticks.png?no-inline";
 
 const app = document.querySelector<HTMLElement>("#app")!;
 
@@ -146,6 +147,13 @@ const champions: Champion[] = [
     imageURL: azirURL,
     cost: 130000,
     minionsPerSecond: 260,
+    count: 0,
+  },
+  {
+    name: "Fiddlesticks",
+    imageURL: fiddlesticks,
+    cost: 140000,
+    minionsPerSecond: 540,
     count: 0,
   },
 ];
