@@ -5,6 +5,8 @@ import "./style.css";
 
 import casterMinionURL from "./assets/casterMinion.webp?no-inline";
 import longSwordURL from "./assets/LongSword.png?no-inline";
+import bfSwordURL from "./assets/BFSword.png?no-inline";
+import infinityEdgeURL from "./assets/InfinityEdge.png?no-inline";
 
 const app = document.querySelector<HTMLElement>("#app")!;
 
@@ -37,20 +39,32 @@ farmMinionButton.addEventListener("click", () => {
 // total AD + cost of AD
 let AD: number = 1;
 let ADCost: number = 15;
-const longSwordContainer = document.createElement("div");
+const itemContainer = document.createElement("div");
 
 // function that adds long sword PNG to show how much AD the user has
-function addLongSword() {
-  const longSword = document.createElement("img");
-  longSword.src = longSwordURL;
-  longSword.alt = "Long Sword";
-  longSword.width = 24;
-  longSword.height = 24;
-  longSwordContainer.append(longSword);
+function addItem(url: string, alt: string) {
+  const item = document.createElement("img");
+  item.src = url;
+  item.alt = alt;
+  item.width = 24;
+  item.height = 24;
+  itemContainer.append(item);
+}
+
+function loadItems() {
+  itemContainer.replaceChildren();
+
+  const IEs = Math.floor(AD / 25);
+  const BFs = Math.floor((AD % 25) / 5);
+  const LSs = AD % 5;
+
+  for (let i = 0; i < IEs; i++) addItem(infinityEdgeURL, "Infinity Edge");
+  for (let i = 0; i < BFs; i++) addItem(bfSwordURL, "B.F. Sword");
+  for (let i = 0; i < LSs; i++) addItem(longSwordURL, "Long Sword");
 }
 
 // user starts with 1 AD
-addLongSword();
+loadItems();
 
 // buy AD button, cost embedded in button text
 const buyADButton = document.createElement("button");
@@ -65,7 +79,7 @@ buyADButton.addEventListener("click", () => {
   if (minionsFarmed < ADCost) return;
   minionsFarmed -= ADCost;
   AD++;
-  addLongSword();
+  loadItems();
   ADCost = Math.ceil(ADCost * 1.15);
   minionsFarmedButton.textContent = minionsFarmed.toString();
   ADElement.textContent = `AD: ${AD}`;
@@ -110,7 +124,7 @@ app.append(
   minionsFarmedButton,
   ADElement,
   buyADButton,
-  longSwordContainer,
+  itemContainer,
   championsElement,
   buyChampionButton,
 );
