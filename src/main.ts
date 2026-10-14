@@ -39,6 +39,19 @@ let AD: number = 1;
 let ADCost: number = 15;
 const longSwordContainer = document.createElement("div");
 
+// function that adds long sword PNG to show how much AD the user has
+function addLongSword() {
+  const longSword = document.createElement("img");
+  longSword.src = longSwordURL;
+  longSword.alt = "Long Sword";
+  longSword.width = 24;
+  longSword.height = 24;
+  longSwordContainer.append(longSword);
+}
+
+// user starts with 1 AD
+addLongSword();
+
 // buy AD button, cost embedded in button text
 const buyADButton = document.createElement("button");
 buyADButton.textContent = `Buy AD - (${ADCost} minions)`;
@@ -52,12 +65,7 @@ buyADButton.addEventListener("click", () => {
   if (minionsFarmed < ADCost) return;
   minionsFarmed -= ADCost;
   AD++;
-  const longSword = document.createElement("img");
-  longSword.src = longSwordURL;
-  longSword.alt = "Long Sword";
-  longSword.width = 24;
-  longSword.height = 24;
-  longSwordContainer.append(longSword);
+  addLongSword();
   ADCost = Math.ceil(ADCost * 1.15);
   minionsFarmedButton.textContent = minionsFarmed.toString();
   ADElement.textContent = `AD: ${AD}`;
