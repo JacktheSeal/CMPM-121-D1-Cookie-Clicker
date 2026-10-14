@@ -1,6 +1,6 @@
 # Minion Dematerializer
 
-Link to Working Page: put link here
+Link to Working Page: <https://jacktheseal.github.io/CMPM-121-D1-Cookie-Clicker/>
 
 Interaction Explanation:
 To play, the user must click on the "Farm Minion" button. This generates gold, which the user can use to purchase upgrades like AD (flat click upgrade) and champions (per second automatic upgrade). AD is a flat base system on its own, whereas champions are stored within champion objects, meaning it is easy for developers to add or remove additional champions and tune their parameters.
