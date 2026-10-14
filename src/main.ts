@@ -16,7 +16,6 @@ image.height = 96;
 image.style.display = "block";
 
 let minionsFarmed: number = 0;
-let AD: number = 1;
 
 const farmMinionButton = document.createElement("button") as HTMLButtonElement;
 farmMinionButton.textContent = "Farm Minion";
@@ -32,20 +31,27 @@ farmMinionButton.addEventListener("click", () => {
 
 /* AD Section: more AD = more minions per manual mouse click*/
 
-const ADCost: number = 15;
+// total AD + cost of AD
+let AD: number = 1;
+let ADCost: number = 15;
 
+// buy AD button, cost embedded in button text
 const buyADButton = document.createElement("button");
 buyADButton.textContent = `Buy AD - (${ADCost} minions)`;
 
+// shows amt of AD
 const ADElement = document.createElement("p");
 ADElement.textContent = "AD: 0";
 
+// AD purchase button logic, price increments + update button text with new price
 buyADButton.addEventListener("click", () => {
   if (minionsFarmed < ADCost) return;
   minionsFarmed -= ADCost;
   AD++;
+  ADCost = Math.ceil(ADCost * 1.15);
   minionsFarmedButton.textContent = minionsFarmed.toString();
   ADElement.textContent = `AD: ${AD}`;
+  buyADButton.textContent = `Buy AD - (${ADCost} minions)`;
 });
 
 /* YASUO SECTION: Yasuo = Farm*/
