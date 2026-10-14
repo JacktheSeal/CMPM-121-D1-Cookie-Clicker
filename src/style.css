@@ -1,11 +1,23 @@
+#app {
+  max-width: 480px;
+  margin: 40px auto;
+  padding: 24px;
+  background: rgba(20, 10, 30, 0.6);
+  border-radius: 12px;
+}
+
 #app > img {
-  filter: drop-shadow(3px 0 0 #c8aa6e);
+  filter:
+    drop-shadow(3px 0 0 #c8aa6e)
+    drop-shadow(-3px 0 0 #c8aa6e)
+    drop-shadow(0 3px 0 #c8aa6e)
+    drop-shadow(0 -3px 0 #c8aa6e);
   margin: 0 auto;
 }
 
 body {
-  background: #010a13;
-  color: #c8aa6e;
+  background: #010a13 url("./assets/bg1.jpg") center / cover fixed;
+  color: #ffffff;
   font-family: sans-serif;
   text-align: center;
 }
@@ -19,4 +31,12 @@ button {
   padding: 8px 16px;
   margin: 4px;
   cursor: pointer;
+  color: #ffffff;
+  background: rgba(244, 166, 192, 0.2);
+  border: 1px solid #f4a6c0;
+  border-radius: 8px;
+}
+
+button:hover {
+  background: rgba(244, 166, 192, 0.4);
 }
