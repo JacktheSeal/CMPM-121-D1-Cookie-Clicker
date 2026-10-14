@@ -18,7 +18,7 @@ Refactor 1 - Adjust variable names to match theming of project and further usage
 Refactor 2 - Seperate actual math logic calculations from their visual update counterparts by creating a function which displays additional upgrade images when called
 <https://github.com/JacktheSeal/CMPM-121-D1-Cookie-Clicker/commit/dfc1c87c3eea6362e00b1bc69f247aaca866aba4>
 Refactor 3 - Hands champion creation logic to a general function, using the SOLID principles of single-responsibility, open-closed, and dependency inversion to justify and inform changes made. This refactor ensures that future developers can depend on the abstract class of a champion and the surrounding general functions that support the use of that class, rather than having to individually create each champion by copy pasting similar code.
-this next commit
+<https://github.com/JacktheSeal/CMPM-121-D1-Cookie-Clicker/commit/2aa84ad1c4d53c36612d5f29533ce2d2a4a02f33>
 
 ## Credits
 

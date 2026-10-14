@@ -9,6 +9,9 @@ import bfSwordURL from "./assets/BFSword.png?no-inline";
 import infinityEdgeURL from "./assets/InfinityEdge.png?no-inline";
 import yasuoURL from "./assets/yasuo.png?no-inline";
 import yoneURL from "./assets/yone.png?no-inline";
+import sylasURL from "./assets/sylas.png?no-inline";
+import viktorURL from "./assets/viktor.png?no-inline";
+import azirURL from "./assets/azir.png?no-inline";
 
 const app = document.querySelector<HTMLElement>("#app")!;
 
@@ -33,8 +36,12 @@ minionsFarmedButton.textContent = "0";
 
 farmMinionButton.addEventListener("click", () => {
   minionsFarmed += AD;
-  minionsFarmedButton.textContent = minionsFarmed.toString();
+  updateMinionDisplay();
 });
+
+function updateMinionDisplay() {
+  minionsFarmedButton.textContent = Math.floor(minionsFarmed).toString();
+}
 
 /* AD Section: more AD = more minions per manual mouse click*/
 
@@ -42,6 +49,7 @@ farmMinionButton.addEventListener("click", () => {
 let AD: number = 1;
 let ADCost: number = 15;
 const itemContainer = document.createElement("div");
+itemContainer.id = "items";
 
 // function that adds long sword PNG to show how much AD the user has
 function addItem(url: string, alt: string) {
@@ -73,6 +81,9 @@ loadItems();
 const buyADButton = document.createElement("button");
 buyADButton.textContent = `Buy AD - (${ADCost} minions)`;
 
+const ADDescription = document.createElement("p");
+ADDescription.textContent = `Increase Minions per Manual Click by 1`;
+
 // shows amt of AD
 const ADElement = document.createElement("p");
 ADElement.textContent = "AD: 1";
@@ -84,7 +95,7 @@ buyADButton.addEventListener("click", () => {
   AD++;
   loadItems();
   ADCost = Math.ceil(ADCost * 1.15);
-  minionsFarmedButton.textContent = minionsFarmed.toString();
+  updateMinionDisplay();
   ADElement.textContent = `AD: ${AD}`;
   buyADButton.textContent = `Buy AD - (${ADCost} minions)`;
 });
@@ -101,15 +112,36 @@ const champions: Champion[] = [
   {
     name: "Yasuo",
     imageURL: yasuoURL,
-    cost: 100,
-    minionsPerSecond: 1,
+    cost: 15,
+    minionsPerSecond: 0.1,
     count: 0,
   },
   {
     name: "Yone",
     imageURL: yoneURL,
-    cost: 1000,
+    cost: 100,
+    minionsPerSecond: 1,
+    count: 0,
+  },
+  {
+    name: "Sylas",
+    imageURL: sylasURL,
+    cost: 1100,
     minionsPerSecond: 8,
+    count: 0,
+  },
+  {
+    name: "Viktor",
+    imageURL: viktorURL,
+    cost: 12000,
+    minionsPerSecond: 47,
+    count: 0,
+  },
+  {
+    name: "Azir",
+    imageURL: azirURL,
+    cost: 130000,
+    minionsPerSecond: 260,
     count: 0,
   },
 ];
@@ -137,8 +169,8 @@ function createChampionSection(champion: Champion) {
     champion.count++;
     addChampionImage(container, champion);
     champion.cost = Math.ceil(champion.cost * 1.15 ** champion.count);
-    minionsFarmedButton.textContent = minionsFarmed.toString();
-    countText.textContent = `${champion.name}s: ${champion.count}`;
+    updateMinionDisplay();
+    countText.textContent = `${champion.name} Count: ${champion.count}`;
     buyButton.textContent = `Buy ${champion.name} - (${champion.cost} minions)`;
   });
 
@@ -166,7 +198,7 @@ setInterval(() => {
   for (const champion of champions) {
     minionsFarmed += champion.count * champion.minionsPerSecond;
   }
-  minionsFarmedButton.textContent = minionsFarmed.toString();
+  updateMinionDisplay();
 }, 1000);
 
 app.append(
@@ -176,6 +208,7 @@ app.append(
   minionsFarmedButton,
   ADElement,
   buyADButton,
+  ADDescription,
   itemContainer,
   ...championElements,
 );
