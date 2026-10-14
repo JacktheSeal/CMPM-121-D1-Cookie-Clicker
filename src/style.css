@@ -1,5 +1,5 @@
-img {
-  filter: drop-shadow();
+#app > img {
+  filter: drop-shadow(3px 0 0 #c8aa6e);
   margin: 0 auto;
 }
 

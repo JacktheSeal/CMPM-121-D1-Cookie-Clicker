@@ -7,6 +7,7 @@ import casterMinionURL from "./assets/casterMinion.webp?no-inline";
 import longSwordURL from "./assets/LongSword.png?no-inline";
 import bfSwordURL from "./assets/BFSword.png?no-inline";
 import infinityEdgeURL from "./assets/InfinityEdge.png?no-inline";
+import yasuoURL from "./assets/yasuo.png?no-inline";
 
 const app = document.querySelector<HTMLElement>("#app")!;
 
@@ -51,12 +52,13 @@ function addItem(url: string, alt: string) {
   itemContainer.append(item);
 }
 
+// function that loads all items
 function loadItems() {
   itemContainer.replaceChildren();
 
-  const IEs = Math.floor(AD / 25);
-  const BFs = Math.floor((AD % 25) / 5);
-  const LSs = AD % 5;
+  const IEs = Math.floor(AD / 16);
+  const BFs = Math.floor((AD % 16) / 4);
+  const LSs = AD % 4;
 
   for (let i = 0; i < IEs; i++) addItem(infinityEdgeURL, "Infinity Edge");
   for (let i = 0; i < BFs; i++) addItem(bfSwordURL, "B.F. Sword");
@@ -91,6 +93,7 @@ buyADButton.addEventListener("click", () => {
 // # of yasuos + cost of yasuos
 let champions: number = 0;
 let championCost: number = 20;
+const yasuoContainer = document.createElement("div");
 
 // buy yasuo button, cost embedded in button text
 const buyChampionButton = document.createElement("button");
@@ -105,11 +108,21 @@ buyChampionButton.addEventListener("click", () => {
   if (minionsFarmed < championCost) return;
   minionsFarmed -= championCost;
   champions++;
+  addYasuo();
   championCost = Math.ceil(championCost * 1.15);
   minionsFarmedButton.textContent = minionsFarmed.toString();
   championsElement.textContent = `Yasuos: ${champions}`;
   buyChampionButton.textContent = `Buy Yasuo - (${championCost} minions)`;
 });
+
+function addYasuo() {
+  const yasuo = document.createElement("img");
+  yasuo.src = yasuoURL;
+  yasuo.alt = "Yasuo";
+  yasuo.width = 96;
+  yasuo.height = 96;
+  yasuoContainer.append(yasuo);
+}
 
 // add minions per second based on number of champions (yasuo)
 setInterval(() => {
@@ -127,4 +140,5 @@ app.append(
   itemContainer,
   championsElement,
   buyChampionButton,
+  yasuoContainer,
 );
