@@ -18,12 +18,12 @@ const app = document.querySelector<HTMLElement>("#app")!;
 const heading = document.createElement("h1");
 heading.textContent = "Minion Dematerializer";
 
-const image = document.createElement("img");
-image.src = casterMinionURL;
-image.alt = "MINION";
-image.width = 144;
-image.height = 144;
-image.style.display = "block";
+const minionImage = document.createElement("img");
+minionImage.src = casterMinionURL;
+minionImage.alt = "MINION";
+minionImage.width = 144;
+minionImage.height = 144;
+minionImage.style.display = "block";
 
 let minionsFarmed: number = 0;
 
@@ -35,6 +35,10 @@ minionsFarmedButton.id = "minionsFarmed";
 minionsFarmedButton.textContent = "0";
 
 farmMinionButton.addEventListener("click", () => {
+  minionsFarmed += AD;
+  updateMinionDisplay();
+});
+minionImage.addEventListener("click", () => {
   minionsFarmed += AD;
   updateMinionDisplay();
 });
@@ -203,7 +207,7 @@ setInterval(() => {
 
 app.append(
   heading,
-  image,
+  minionImage,
   farmMinionButton,
   minionsFarmedButton,
   ADElement,
