@@ -16,6 +16,7 @@ image.height = 96;
 image.style.display = "block";
 
 let minionsFarmed: number = 0;
+let AD: number = 1;
 
 const farmMinionButton = document.createElement("button") as HTMLButtonElement;
 farmMinionButton.textContent = "Farm Minion";
@@ -25,21 +26,43 @@ minionsFarmedButton.id = "minionsFarmed";
 minionsFarmedButton.textContent = "0";
 
 farmMinionButton.addEventListener("click", () => {
-  minionsFarmed++;
+  minionsFarmed += AD;
   minionsFarmedButton.textContent = minionsFarmed.toString();
 });
 
-// Yasuo Section
+/* AD Section: more AD = more minions per manual mouse click*/
 
+const ADCost: number = 15;
+
+const buyADButton = document.createElement("button");
+buyADButton.textContent = `Buy AD - (${ADCost} minions)`;
+
+const ADElement = document.createElement("p");
+ADElement.textContent = "AD: 0";
+
+buyADButton.addEventListener("click", () => {
+  if (minionsFarmed < ADCost) return;
+  minionsFarmed -= ADCost;
+  AD++;
+  minionsFarmedButton.textContent = minionsFarmed.toString();
+  ADElement.textContent = `AD: ${AD}`;
+});
+
+/* YASUO SECTION: Yasuo = Farm*/
+
+// # of yasuos + cost of yasuos
 let champions: number = 0;
 let championCost: number = 20;
 
+// buy yasuo button, cost embedded in button text
 const buyChampionButton = document.createElement("button");
 buyChampionButton.textContent = `Buy Yasuo - (${championCost} minions)`;
 
+// shows number of yasuos
 const championsElement = document.createElement("p");
 championsElement.textContent = "Yasuos: 0";
 
+// yasuo purchase button logic, price increments + update button text with new price
 buyChampionButton.addEventListener("click", () => {
   if (minionsFarmed < championCost) return;
   minionsFarmed -= championCost;
@@ -50,6 +73,7 @@ buyChampionButton.addEventListener("click", () => {
   buyChampionButton.textContent = `Buy Yasuo - (${championCost} minions)`;
 });
 
+// add minions per second based on number of champions (yasuo)
 setInterval(() => {
   minionsFarmed += champions;
   minionsFarmedButton.textContent = minionsFarmed.toString();
@@ -60,6 +84,8 @@ app.append(
   image,
   farmMinionButton,
   minionsFarmedButton,
+  buyADButton,
+  ADElement,
   buyChampionButton,
   championsElement,
 );
