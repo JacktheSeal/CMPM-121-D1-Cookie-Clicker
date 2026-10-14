@@ -1,0 +1,22 @@
+img {
+  filter: drop-shadow();
+  margin: 0 auto;
+}
+
+body {
+  background: #010a13;
+  color: #c8aa6e;
+  font-family: sans-serif;
+  text-align: center;
+}
+
+h1 {
+  font-weight: 900;
+}
+
+button {
+  font: inherit;
+  padding: 8px 16px;
+  margin: 4px;
+  cursor: pointer;
+}

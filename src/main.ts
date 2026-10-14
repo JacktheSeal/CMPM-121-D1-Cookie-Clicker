@@ -1,7 +1,10 @@
 // Vite turns this import into a production-safe URL. Keep it as a file so
 // even this tiny example demonstrates a separately deployed asset.
 // @deno-types="./asset-url.d.ts"
-import tileUrl from "./assets/tile.svg?no-inline";
+import "./style.css";
+
+import casterMinionURL from "./assets/casterMinion.webp?no-inline";
+import longSwordURL from "./assets/LongSword.png?no-inline";
 
 const app = document.querySelector<HTMLElement>("#app")!;
 
@@ -9,10 +12,10 @@ const heading = document.createElement("h1");
 heading.textContent = "Minion Clicker";
 
 const image = document.createElement("img");
-image.src = tileUrl;
-image.alt = "A teal tile with a cream circle";
-image.width = 96;
-image.height = 96;
+image.src = casterMinionURL;
+image.alt = "MINION";
+image.width = 144;
+image.height = 144;
 image.style.display = "block";
 
 let minionsFarmed: number = 0;
@@ -20,7 +23,7 @@ let minionsFarmed: number = 0;
 const farmMinionButton = document.createElement("button") as HTMLButtonElement;
 farmMinionButton.textContent = "Farm Minion";
 
-const minionsFarmedButton = document.createElement("p")!;
+const minionsFarmedButton = document.createElement("h1")!;
 minionsFarmedButton.id = "minionsFarmed";
 minionsFarmedButton.textContent = "0";
 
@@ -34,6 +37,7 @@ farmMinionButton.addEventListener("click", () => {
 // total AD + cost of AD
 let AD: number = 1;
 let ADCost: number = 15;
+const longSwordContainer = document.createElement("div");
 
 // buy AD button, cost embedded in button text
 const buyADButton = document.createElement("button");
@@ -48,6 +52,12 @@ buyADButton.addEventListener("click", () => {
   if (minionsFarmed < ADCost) return;
   minionsFarmed -= ADCost;
   AD++;
+  const longSword = document.createElement("img");
+  longSword.src = longSwordURL;
+  longSword.alt = "Long Sword";
+  longSword.width = 24;
+  longSword.height = 24;
+  longSwordContainer.append(longSword);
   ADCost = Math.ceil(ADCost * 1.15);
   minionsFarmedButton.textContent = minionsFarmed.toString();
   ADElement.textContent = `AD: ${AD}`;
@@ -92,6 +102,7 @@ app.append(
   minionsFarmedButton,
   ADElement,
   buyADButton,
+  longSwordContainer,
   championsElement,
   buyChampionButton,
 );
