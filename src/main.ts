@@ -6,15 +6,27 @@ import tileUrl from "./assets/tile.svg?no-inline";
 const app = document.querySelector<HTMLElement>("#app")!;
 
 const heading = document.createElement("h1");
-heading.textContent = "D1 project";
+heading.textContent = "Minion Clicker";
 
 const image = document.createElement("img");
 image.src = tileUrl;
 image.alt = "A teal tile with a cream circle";
 image.width = 96;
 image.height = 96;
+image.style.display = "block";
 
-const message = document.createElement("p");
-message.textContent = "Your project starts here.";
+let counter: number = 0;
 
-app.append(heading, image, message);
+const clickButton = document.createElement("button") as HTMLButtonElement;
+clickButton.textContent = "Farm Minion";
+
+const counterElement = document.createElement("p")!;
+counterElement.id = "counter";
+counterElement.textContent = "0";
+
+clickButton.addEventListener("click", () => {
+  counter++;
+  counterElement.textContent = counter.toString();
+});
+
+app.append(heading, image, clickButton, counterElement);
